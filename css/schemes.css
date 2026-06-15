@@ -1,0 +1,166 @@
+/* Government Schemes Directory Styling */
+
+.schemes-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-8);
+}
+
+/* Eligibility Widget */
+.eligibility-checker-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+  height: fit-content;
+  position: sticky;
+  top: 94px;
+}
+
+.eligibility-title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-4);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-2);
+}
+
+.eligibility-results-box {
+  margin-top: var(--spacing-6);
+  padding: var(--spacing-4);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--accent-primary);
+  font-size: var(--font-sm);
+  display: none;
+}
+
+.eligibility-results-box.active {
+  display: block;
+  animation: fadeIn var(--transition-normal) forwards;
+}
+
+/* Scheme Cards Column */
+.schemes-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.scheme-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  border-left: 5px solid var(--accent-primary);
+}
+
+.scheme-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-primary);
+}
+
+.scheme-card.subsidy { border-left-color: var(--accent-primary); }
+.scheme-card.insurance { border-left-color: var(--accent-secondary); }
+.scheme-card.pension { border-left-color: var(--accent-warm); }
+
+.scheme-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-3);
+  gap: var(--spacing-4);
+}
+
+.scheme-title-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.scheme-name {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.scheme-dept {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  font-weight: 600;
+}
+
+.scheme-badge {
+  font-size: var(--font-xs);
+  font-weight: 700;
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+}
+
+.scheme-description {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-4);
+}
+
+.scheme-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-4);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+  font-size: var(--font-xs);
+  margin-bottom: var(--spacing-4);
+}
+
+.scheme-detail-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.scheme-detail-lbl {
+  color: var(--text-tertiary);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.scheme-detail-val {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.scheme-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scheme-eligibility-summary {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.scheme-actions {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+@media (max-width: 900px) {
+  .schemes-layout {
+    grid-template-columns: 1fr;
+  }
+  .eligibility-checker-card {
+    position: static;
+  }
+  .scheme-details-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2);
+  }
+}

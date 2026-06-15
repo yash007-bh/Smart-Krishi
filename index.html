@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Krishi Assistant - Modern Agricultural Dashboard</title>
+  <meta name="description" content="A comprehensive digital farming platform offering crop recommendations, NPK fertilizer calculators, real-time weather forecasts, disease diagnostics, and government scheme matches.">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/crop-advisor.css">
+  <link rel="stylesheet" href="css/fertilizer.css">
+  <link rel="stylesheet" href="css/weather.css">
+  <link rel="stylesheet" href="css/pests.css">
+  <link rel="stylesheet" href="css/schemes.css">
+</head>
+<body>
+
+  <!-- Main App Container -->
+  <div class="app-container">
+
+    <!-- Top Header -->
+    <header class="app-header" id="app-header">
+      <div class="logo-section">
+        <!-- SVG Sprout / Farming logo -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m0-18l-8 8m8-8l8 8m-8-8c-2.5 0-5 2-5 5s2.5 5 5 5 5-2 5-5-2.5-5-5-5z"/>
+        </svg>
+        <span class="logo-title" id="lbl-logo">Smart Krishi</span>
+      </div>
+
+      <div class="header-actions">
+        <!-- Voice Assistant Speech Toggle -->
+        <button class="btn-control" id="btn-voice-toggle" aria-label="Toggle voice output">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 20px; height: 20px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+          </svg>
+          <span id="lbl-voice-toggle">Voice: OFF</span>
+        </button>
+
+        <!-- Dark Mode Toggle -->
+        <button class="btn-control" id="btn-theme-toggle" aria-label="Toggle dark/light mode">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 20px; height: 20px;" id="theme-icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+          </svg>
+        </button>
+
+        <!-- Bilingual Selector -->
+        <div class="lang-toggle-container">
+          <button class="lang-btn active" id="btn-lang-en" data-lang="en">EN</button>
+          <button class="lang-btn" id="btn-lang-hi" data-lang="hi">हिन्दी</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar">
+      <nav aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a class="nav-link active" data-tab="dashboard" id="nav-dashboard">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+              </svg>
+              <span class="nav-text" data-tr="nav_dashboard">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-tab="crop" id="nav-crop">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18M12 3c3.5 0 6 3 6 6.5S15.5 16 12 16M12 3c-3.5 0-6 3-6 6.5S8.5 16 12 16M12 16c3.5 0 6 2 6 5.5M12 16c-3.5 0-6 2-6 5.5" />
+              </svg>
+              <span class="nav-text" data-tr="nav_crop">Crop Advisor</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-tab="fertilizer" id="nav-fertilizer">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="nav-text" data-tr="nav_fertilizer">NPK Calculator</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-tab="weather" id="nav-weather">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" />
+              </svg>
+              <span class="nav-text" data-tr="nav_weather">Weather</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-tab="pests" id="nav-pests">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <span class="nav-text" data-tr="nav_pests">Pest Database</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-tab="schemes" id="nav-schemes">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span class="nav-text" data-tr="nav_schemes">Gov Schemes</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2026 Smart Krishi</p>
+        <span id="lbl-active-coords">Coords: 28.61, 77.20</span>
+      </div>
+    </aside>
+
+    <!-- Main Content Panels -->
+    <main class="app-main">
+
+      <!-- ================= DASHBOARD VIEW ================= -->
+      <section class="tab-content active" id="tab-dashboard">
+        <div class="dashboard-hero">
+          <h1 class="dashboard-hero-title" id="dash-greeting" data-tr="dash_greeting">Good Morning, Farmer</h1>
+          <p class="dashboard-hero-subtitle" id="dash-intro" data-tr="dash_intro">Welcome back to your dashboard. Check your live weather warnings, crop compatibility metrics, and fertilizer details below.</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Quick Status Cards -->
+          <div class="info-cards-container">
+            <div class="widget-card">
+              <div class="widget-header">
+                <div class="widget-icon-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18M3 12h18"/></svg>
+                </div>
+                <h3 class="widget-title" data-tr="widget_crop_title">Crop Recommendation</h3>
+              </div>
+              <p class="widget-desc" data-tr="widget_crop_desc">Find the best crop for your soil type and current sowing season.</p>
+              <a class="widget-action" id="dash-btn-crop" data-goto="crop">
+                <span data-tr="widget_action_go">Check Now</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <div class="widget-card">
+              <div class="widget-header">
+                <div class="widget-icon-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
+                </div>
+                <h3 class="widget-title" data-tr="widget_weather_title">Weather Status</h3>
+              </div>
+              <div class="widget-value" id="dash-weather-val">--°C</div>
+              <p class="widget-desc" id="dash-weather-desc">Fetching details...</p>
+              <a class="widget-action" id="dash-btn-weather" data-goto="weather">
+                <span data-tr="widget_action_go">View Forecast</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <div class="widget-card">
+              <div class="widget-header">
+                <div class="widget-icon-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                </div>
+                <h3 class="widget-title" data-tr="widget_fert_title">Nutrient Adjustments</h3>
+              </div>
+              <p class="widget-desc" data-tr="widget_fert_desc">Input your soil NPK value to get Urea, DAP, and compost dose calculations.</p>
+              <a class="widget-action" id="dash-btn-fertilizer" data-goto="fertilizer">
+                <span data-tr="widget_action_go">Calculate NPK</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <div class="widget-card">
+              <div class="widget-header">
+                <div class="widget-icon-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h3 class="widget-title" data-tr="widget_scheme_title">Scheme Eligibility</h3>
+              </div>
+              <p class="widget-desc" data-tr="widget_scheme_desc">Check which government subsidies and benefits you qualify for.</p>
+              <a class="widget-action" id="dash-btn-schemes" data-goto="schemes">
+                <span data-tr="widget_action_go">Check Eligibility</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Live Alert List -->
+          <div class="alert-panel">
+            <h2 class="panel-title" data-tr="dash_alert_title">Live Farming Alerts</h2>
+            <ul class="alert-list" id="dash-alerts-list">
+              <li class="alert-item">
+                <div class="alert-item-content">
+                  <div class="alert-item-title">Fetching agricultural guidelines...</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Agricultural Tips Carousel/Slider -->
+        <div class="tips-section">
+          <h2 class="panel-title" data-tr="dash_tips_title">Important Agricultural Advice</h2>
+          <div class="tips-slider">
+            <div class="tip-card">
+              <div class="tip-header" data-tr="tip_tag_soil">Soil Care</div>
+              <div class="tip-text" data-tr="tip_body_soil">Test soil health once every two years. Balanced chemical fertilizers combined with organic manure protect yield longevity.</div>
+            </div>
+            <div class="tip-card">
+              <div class="tip-header" data-tr="tip_tag_irrigation">Watering</div>
+              <div class="tip-text" data-tr="tip_body_irrigation">Use drip or sprinkler irrigation systems to conserve water. Irrigate in early mornings to minimize evaporation.</div>
+            </div>
+            <div class="tip-card">
+              <div class="tip-header" data-tr="tip_tag_pest">Pest Management</div>
+              <div class="tip-text" data-tr="tip_body_pest">Encourage natural predators and inspect leaves daily. Early spraying prevents wide outbreaks.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= CROP RECOMMENDATION VIEW ================= -->
+      <section class="tab-content" id="tab-crop">
+        <div class="page-header">
+          <h1 class="page-title" data-tr="crop_title">Crop Suitability Advisor</h1>
+          <p class="page-subtitle" data-tr="crop_subtitle">Fill in your soil parameters to calculate which crops will grow best on your farm.</p>
+        </div>
+
+        <div class="advisor-container">
+          <!-- Form Panel -->
+          <form class="filter-sidebar" id="form-crop-advisor">
+            <h2 class="filter-section-title">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 20px; height: 20px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+              <span data-tr="form_parameters">Farm Parameters</span>
+            </h2>
+
+            <div class="form-group">
+              <label class="form-label" for="inp-soil-type" data-tr="lbl_soil_type">Soil Type</label>
+              <select class="form-control" id="inp-soil-type">
+                <option value="alluvial" data-tr="soil_alluvial">Alluvial (जलोढ़)</option>
+                <option value="black" data-tr="soil_black">Black (काली)</option>
+                <option value="red" data-tr="soil_red">Red (लाल)</option>
+                <option value="laterite" data-tr="soil_laterite">Laterite (लेटराइट)</option>
+                <option value="sandy" data-tr="soil_sandy">Desert / Sandy (रेतीली)</option>
+                <option value="clayey" data-tr="soil_clayey">Clayey (मटियार)</option>
+                <option value="loamy" data-tr="soil_loamy">Loamy (दोमट)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="inp-crop-season" data-tr="lbl_season">Sowing Season</label>
+              <select class="form-control" id="inp-crop-season">
+                <option value="kharif" data-tr="season_kharif">Kharif (Monsoon: Jun - Oct)</option>
+                <option value="rabi" data-tr="season_rabi">Rabi (Winter: Oct - Apr)</option>
+                <option value="zaid" data-tr="season_zaid">Zaid (Summer: Mar - Jun)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="inp-crop-water" data-tr="lbl_water">Water Availability</label>
+              <select class="form-control" id="inp-crop-water">
+                <option value="low" data-tr="water_low">Low / Rainfed (कम / बारानी)</option>
+                <option value="moderate" selected data-tr="water_mod">Moderate (मध्यम / नहरी-कुआं)</option>
+                <option value="heavy" data-tr="water_heavy">Heavy Irrigation (अधिक / भरपूर सिंचाई)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="inp-crop-ph" data-tr="lbl_ph">Soil pH</label>
+              <input type="range" class="custom-range" id="inp-crop-ph" min="4.0" max="9.0" step="0.1" value="6.5">
+              <div class="range-display">
+                <span>4.0 (Acid)</span>
+                <strong id="val-crop-ph">6.5</strong>
+                <span>9.0 (Alkaline)</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="inp-crop-temp" data-tr="lbl_temp">Average Temp (°C)</label>
+              <input type="number" class="form-control" id="inp-crop-temp" min="5" max="50" value="25">
+              <small style="color: var(--text-tertiary);" id="lbl-temp-src">Auto-filled from local weather</small>
+            </div>
+
+            <button type="button" class="btn-primary btn-block" id="btn-calculate-crops">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 18px; height: 18px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+              <span data-tr="btn_find_crops">Find Suitable Crops</span>
+            </button>
+          </form>
+
+          <!-- Recommendation Results List -->
+          <div class="results-container">
+            <div class="results-header">
+              <span class="results-count" id="lbl-crop-count">0 Crops Found</span>
+              <button class="btn-control" id="btn-speak-crops" style="display: none;" aria-label="Listen to crop results">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 16px; height: 16px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M12 18.75l-3.75-3.75H4.5A1.5 1.5 0 013 13.5v-3a1.5 1.5 0 011.5-1.5h3.75L12 5.25v13.5z" /></svg>
+                <span data-tr="btn_listen">Listen Results</span>
+              </button>
+            </div>
+
+            <div class="results-grid" id="crop-results-grid">
+              <!-- Default Empty State -->
+              <div class="empty-state">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                <h3 data-tr="empty_results_title">No Calculations Run Yet</h3>
+                <p data-tr="empty_results_desc">Adjust the parameters on the left sidebar and click 'Find Suitable Crops' to calculate compatibility values.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= FERTILIZER CALCULATOR VIEW ================= -->
+      <section class="tab-content" id="tab-fertilizer">
+        <div class="page-header">
+          <h1 class="page-title" data-tr="fert_title">Soil NPK Fertilizer Calculator</h1>
+          <p class="page-subtitle" data-tr="fert_subtitle">Input crop type and current soil nutrients to calculate Urea, DAP, Potash, and manure recommendations.</p>
+        </div>
+
+        <div class="fertilizer-grid">
+          <!-- Inputs Card -->
+          <div class="calc-inputs-card">
+            <h2 class="filter-section-title" data-tr="fert_form_title">Nutrient Inputs</h2>
+            
+            <div class="form-group">
+              <label class="form-label" for="inp-fert-crop" data-tr="lbl_target_crop">Target Crop</label>
+              <select class="form-control" id="inp-fert-crop">
+                <option value="rice" data-tr="crop_rice">Rice (Paddy)</option>
+                <option value="wheat" data-tr="crop_wheat">Wheat</option>
+                <option value="maize" data-tr="crop_maize">Maize (Corn)</option>
+                <option value="cotton" data-tr="crop_cotton">Cotton</option>
+                <option value="sugarcane" data-tr="crop_sugarcane">Sugarcane</option>
+                <option value="potato" data-tr="crop_potato">Potato</option>
+                <option value="chickpea" data-tr="crop_chickpea">Chickpea (Gram)</option>
+                <option value="groundnut" data-tr="crop_groundnut">Groundnut</option>
+              </select>
+            </div>
+
+            <div class="npk-sliders-container">
+              <!-- Nitrogen Slider -->
+              <div class="slider-group">
+                <div class="slider-header">
+                  <span class="slider-label">
+                    <strong class="n-badge">N</strong>
+                    <span data-tr="lbl_nitrogen">Nitrogen (kg/ha)</span>
+                  </span>
+                  <span class="slider-val" id="val-fert-n">40 kg/ha</span>
+                </div>
+                <input type="range" class="custom-range range-n" id="inp-fert-n" min="0" max="200" value="40">
+              </div>
+
+              <!-- Phosphorus Slider -->
+              <div class="slider-group">
+                <div class="slider-header">
+                  <span class="slider-label">
+                    <strong class="p-badge">P</strong>
+                    <span data-tr="lbl_phosphorus">Phosphorus (kg/ha)</span>
+                  </span>
+                  <span class="slider-val" id="val-fert-p">25 kg/ha</span>
+                </div>
+                <input type="range" class="custom-range range-p" id="inp-fert-p" min="0" max="150" value="25">
+              </div>
+
+              <!-- Potassium Slider -->
+              <div class="slider-group">
+                <div class="slider-header">
+                  <span class="slider-label">
+                    <strong class="k-badge">K</strong>
+                    <span data-tr="lbl_potassium">Potassium (kg/ha)</span>
+                  </span>
+                  <span class="slider-val" id="val-fert-k">30 kg/ha</span>
+                </div>
+                <input type="range" class="custom-range range-k" id="inp-fert-k" min="0" max="150" value="30">
+              </div>
+
+              <!-- pH Input -->
+              <div class="slider-group">
+                <div class="slider-header">
+                  <span class="slider-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 18px; height: 18px; color: var(--accent-primary);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 9.172V5L8 4z" /></svg>
+                    <span data-tr="lbl_ph_soil">Soil pH</span>
+                  </span>
+                  <span class="slider-val" id="val-fert-ph">6.5</span>
+                </div>
+                <input type="range" class="custom-range" id="inp-fert-ph" min="4.0" max="9.0" step="0.1" value="6.5">
+              </div>
+            </div>
+
+            <button type="button" class="btn-primary btn-block" style="margin-top: var(--spacing-6);" id="btn-calculate-fert">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 18px; height: 18px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+              <span data-tr="btn_calc_doses">Calculate Fertilizer Doses</span>
+            </button>
+          </div>
+
+          <!-- Diagnostic output panel -->
+          <div class="diagnostic-container">
+            <!-- NPK Compare Chart -->
+            <div class="npk-chart-card">
+              <h2 class="filter-section-title" data-tr="fert_chart_title">Nutrient Gap Analysis</h2>
+              <div class="npk-chart">
+                <!-- N row -->
+                <div class="npk-chart-row">
+                  <div class="npk-chart-label n-label">N</div>
+                  <div class="npk-chart-bars">
+                    <div class="chart-bar-container">
+                      <span class="chart-bar-title" data-tr="lbl_target">Target</span>
+                      <div class="chart-bar-wrapper">
+                        <div class="chart-bar-fill bar-n-target" id="bar-n-target" style="width: 0%;"></div>
+                      </div>
+                      <span id="lbl-n-target">0</span>
+                    </div>
+                    <div class="chart-bar-container">
+                      <span class="chart-bar-title" data-tr="lbl_current">Current</span>
+                      <div class="chart-bar-wrapper">
+                        <div class="chart-bar-fill bar-n-current" id="bar-n-current" style="width: 0%;"></div>
+                      </div>
+                      <span id="lbl-n-current">0</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- P row -->
+                <div class="npk-chart-row">
+                  <div class="npk-chart-label p-label">P</div>
+                  <div class="npk-chart-bars">
+                    <div class="chart-bar-container">
+                      <span class="chart-bar-title" data-tr="lbl_target">Target</span>
+                      <div class="chart-bar-wrapper">
+                        <div class="chart-bar-fill bar-p-target" id="bar-p-target" style="width: 0%;"></div>
+                      </div>
+                      <span id="lbl-p-target">0</span>
+                    </div>
+                    <div class="chart-bar-container">
+                      <span class="chart-bar-title" data-tr="lbl_current">Current</span>
+                      <div class="chart-bar-wrapper">
+                        <div class="chart-bar-fill bar-p-current" id="bar-p-current" style="width: 0%;"></div>
+                      </div>
+                      <span id="lbl-p-current">0</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- K row -->
+                <div class="npk-chart-row">
+                  <div class="npk-chart-label k-label">K</div>
+                  <div class="npk-chart-bars">
+                    <div class="chart-bar-container">
+                      <span class="chart-bar-title" data-tr="lbl_target">Target</span>
+                      <div class="chart-bar-wrapper">
+                        <div class="chart-bar-fill bar-k-target" id="bar-k-target" style="style: 0%;"></div>
+                      </div>
+                      <span id="lbl-k-target">0</span>
+                    </div>
+                    <div class="chart-bar-container">
+                      <span class="chart-bar-title" data-tr="lbl_current">Current</span>
+                      <div class="chart-bar-wrapper">
+                        <div class="chart-bar-fill bar-k-current" id="bar-k-current" style="width: 0%;"></div>
+                      </div>
+                      <span id="lbl-k-current">0</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recipe Recommendations -->
+            <div class="advice-box" id="fert-advice-card" style="display: none;">
+              <div class="advice-section-title">
+                <span data-tr="lbl_agri_recipe">Agronomic Recipe (per Hectare)</span>
+                <button class="btn-control" id="btn-speak-fert" aria-label="Listen to chemical advice">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 16px; height: 16px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M12 18.75l-3.75-3.75H4.5A1.5 1.5 0 013 13.5v-3a1.5 1.5 0 011.5-1.5h3.75L12 5.25v13.5z" /></svg>
+                  <span data-tr="btn_listen">Listen</span>
+                </button>
+              </div>
+
+              <!-- pH status banner -->
+              <div class="agri-warning-item alert-level-medium" id="fert-ph-advice-box" style="margin-bottom: var(--spacing-4);">
+                <div class="warning-item-title" id="fert-ph-status">pH Status: Optimal</div>
+                <div id="fert-ph-desc">Soil acidity is balanced.</div>
+              </div>
+
+              <div class="fertilizer-recipe">
+                <!-- Urea -->
+                <div class="recipe-item">
+                  <div class="recipe-name" data-tr="lbl_urea">Urea (Nitrogen supply)</div>
+                  <div class="recipe-qty" id="qty-urea">0 kg</div>
+                </div>
+                <!-- DAP -->
+                <div class="recipe-item">
+                  <div class="recipe-name" data-tr="lbl_dap">DAP (Phosphorus + N)</div>
+                  <div class="recipe-qty" id="qty-dap">0 kg</div>
+                </div>
+                <!-- MOP -->
+                <div class="recipe-item">
+                  <div class="recipe-name" data-tr="lbl_mop">MOP (Potash supply)</div>
+                  <div class="recipe-qty" id="qty-mop">0 kg</div>
+                </div>
+              </div>
+
+              <!-- Organic block -->
+              <div style="margin-top: var(--spacing-6);">
+                <h3 class="widget-title" data-tr="lbl_organic_alternatives">Organic Soil Builders</h3>
+                <ul class="organic-tips" id="list-organic-tips">
+                  <li>Apply farmyard manure regularly to maintain humus content.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= WEATHER VIEW ================= -->
+      <section class="tab-content" id="tab-weather">
+        <div class="page-header">
+          <h1 class="page-title" data-tr="weather_title">Real-time Weather & Alerts</h1>
+          <p class="page-subtitle" data-tr="weather_subtitle">Locate your farm or search a town to load temperature, weekly forecasts, and localized agricultural action rules.</p>
+        </div>
+
+        <div class="weather-header-actions">
+          <div class="search-bar">
+            <input type="text" class="form-control" id="inp-weather-city" placeholder="Enter city name (e.g. Nagpur)" aria-label="Search city">
+            <button class="btn-primary" id="btn-weather-search">
+              <span data-tr="btn_search">Search</span>
+            </button>
+          </div>
+          
+          <button class="btn-control" id="btn-weather-gps">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 18px; height: 18px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            <span data-tr="btn_gps">Use Live Location</span>
+          </button>
+        </div>
+
+        <div class="weather-layout">
+          <!-- Current Weather Card -->
+          <div class="weather-current-card" id="weather-card-element" data-weather="clear">
+            <div class="weather-location-info">
+              <h2 class="weather-loc-name">
+                <span id="lbl-weather-city-name">New Delhi</span>
+                <span class="badge badge-success" style="font-size: 10px;" id="lbl-weather-region">Delhi, IN</span>
+              </h2>
+              <div class="weather-loc-date" id="lbl-weather-date">Thursday, 04 June</div>
+            </div>
+
+            <div class="weather-temp-block">
+              <!-- Large visual representation -->
+              <span class="current-temp" id="lbl-weather-temp">28°</span>
+              <!-- Visual cloud/sun/rain icons using SVG inside js -->
+              <div class="weather-icon-main" id="lbl-weather-svg-container">
+                <!-- Fallback clear icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="color: #ffd54f;"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.162 5.738a.75.75 0 010 1.06l-1.591 1.591a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.06 0zm11.676 0a.75.75 0 011.06 0l1.59 1.59a.75.75 0 11-1.06 1.061l-1.591-1.59a.75.75 0 010-1.061zM12 6.75a5.25 5.25 0 100 10.5 5.25 5.25 0 000-10.5zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm15 0a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5h-2.25A.75.75 0 0118 12zM5.101 17.838a.75.75 0 011.06 0l1.591 1.59a.75.75 0 01-1.06 1.062l-1.591-1.59a.75.75 0 010-1.062zm12.738 0a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06l-1.591-1.59a.75.75 0 010-1.06zM12 18.75a.75.75 0 01.75.75V21.75a.75.75 0 01-1.5 0V19.5a.75.75 0 01.75-.75z"/></svg>
+              </div>
+            </div>
+
+            <div class="weather-condition-desc" id="lbl-weather-desc">Clear Sky</div>
+
+            <div class="weather-details-grid">
+              <div class="weather-detail-item">
+                <!-- Drop icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.5 10.5c0 7.105-7.5 11.25-7.5 11.25S4.5 17.605 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
+                <span data-tr="lbl_humidity">Humidity:</span>
+                <strong id="lbl-weather-humidity">--%</strong>
+              </div>
+              <div class="weather-detail-item">
+                <!-- Wind icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4M18 16H4M14 8H4" /></svg>
+                <span data-tr="lbl_wind">Wind:</span>
+                <strong id="lbl-weather-wind">-- km/h</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Warnings Column -->
+          <div class="advisory-wrapper">
+            <div class="alert-card-glass">
+              <div class="alert-header">
+                <h2 class="alert-card-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 24px; height: 24px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                  <span data-tr="weather_alert_title">Agri-Weather Advisories</span>
+                </h2>
+                <button class="btn-control" id="btn-speak-weather-alerts" aria-label="Listen to weather advisories">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 16px; height: 16px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M12 18.75l-3.75-3.75H4.5A1.5 1.5 0 013 13.5v-3a1.5 1.5 0 011.5-1.5h3.75L12 5.25v13.5z" /></svg>
+                  <span data-tr="btn_listen">Listen</span>
+                </button>
+              </div>
+
+              <div class="alert-card-body" id="weather-alerts-container">
+                <div class="agri-warning-item">
+                  <div class="warning-item-title">Perfect Sowing Weather</div>
+                  <div>Loading localized farm checks...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7 Day Forecast Grid -->
+        <div class="forecast-section">
+          <h2 class="forecast-title" data-tr="weekly_forecast">Weekly 7-Day Forecast</h2>
+          <div class="forecast-grid" id="weather-forecast-grid">
+            <!-- Forecast Day Card Templates generated dynamically -->
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= PEST AND DISEASE VIEW ================= -->
+      <section class="tab-content" id="tab-pests">
+        <div class="page-header">
+          <h1 class="page-title" data-tr="pests_title">Pests & Diseases Index</h1>
+          <p class="page-subtitle" data-tr="pests_subtitle">Select a crop category or type a disease symptom to retrieve organic & chemical containment procedures.</p>
+        </div>
+
+        <div class="pests-filter-bar">
+          <div class="pest-tabs" id="pests-crop-tabs">
+            <button class="pest-tab-btn active" data-crop="all" data-tr="tab_all">All Crops</button>
+            <button class="pest-tab-btn" data-crop="rice" data-tr="crop_rice">Rice</button>
+            <button class="pest-tab-btn" data-crop="wheat" data-tr="crop_wheat">Wheat</button>
+            <button class="pest-tab-btn" data-crop="potato" data-tr="crop_potato">Potato</button>
+            <button class="pest-tab-btn" data-crop="cotton" data-tr="crop_cotton">Cotton</button>
+            <button class="pest-tab-btn" data-crop="sugarcane" data-tr="crop_sugarcane">Sugarcane</button>
+          </div>
+
+          <div class="pest-search-box">
+            <input type="text" class="form-control" id="inp-pest-search" placeholder="Search disease or symptom..." aria-label="Search disease">
+          </div>
+        </div>
+
+        <!-- Pest Grid -->
+        <div class="pest-grid" id="pests-results-grid">
+          <!-- Dynamic cards go here -->
+        </div>
+      </section>
+
+      <!-- Pests Detail Modal -->
+      <div class="modal-overlay" id="pest-detail-modal">
+        <div class="modal-content-card">
+          <div class="modal-header">
+            <div class="modal-title-group">
+              <h2 class="modal-title" id="modal-pest-name">Rice Blast</h2>
+              <span class="crop-scientific" id="modal-pest-scientific">Magnaporthe oryzae</span>
+            </div>
+            <button class="modal-btn-close" id="btn-close-pest-modal" aria-label="Close modal">&times;</button>
+          </div>
+
+          <div class="modal-body">
+            <!-- Audio voice button -->
+            <button class="btn-control" id="btn-speak-pest-modal" style="align-self: flex-start;">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 16px; height: 16px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M12 18.75l-3.75-3.75H4.5A1.5 1.5 0 013 13.5v-3a1.5 1.5 0 011.5-1.5h3.75L12 5.25v13.5z" /></svg>
+              <span data-tr="btn_listen">Listen Details</span>
+            </button>
+
+            <div class="modal-section">
+              <h3 class="modal-section-title" data-tr="lbl_symptoms">Symptoms</h3>
+              <div class="modal-section-body" id="modal-pest-symptoms">Spindle-shaped spots on leaves.</div>
+            </div>
+
+            <div class="modal-section">
+              <h3 class="modal-section-title" data-tr="lbl_prevention">Preventative Actions</h3>
+              <div class="modal-section-body" id="modal-pest-prevention">Avoid excessive nitrogen fertilizers.</div>
+            </div>
+
+            <div class="modal-section">
+              <h3 class="modal-section-title" data-tr="lbl_treatments">Treatment Protocols</h3>
+              <div class="treatment-split">
+                <div class="treatment-column organic">
+                  <h4 class="treatment-col-title" data-tr="lbl_organic_control">Organic Remedies</h4>
+                  <div class="modal-section-body" id="modal-pest-organic">Spray Pseudomonas fluorescens.</div>
+                </div>
+                <div class="treatment-column chemical">
+                  <h4 class="treatment-col-title" data-tr="lbl_chemical_control">Chemical Solution</h4>
+                  <div class="modal-section-body" id="modal-pest-chemical">Spray Tricyclazole.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ================= SCHEMES VIEW ================= -->
+      <section class="tab-content" id="tab-schemes">
+        <div class="page-header">
+          <h1 class="page-title" data-tr="schemes_title">Government Welfare Schemes</h1>
+          <p class="page-subtitle" data-tr="schemes_subtitle">View welfare benefits and enter your profile parameters to identify exact financial matches.</p>
+        </div>
+
+        <div class="schemes-layout">
+          <!-- Schemes listing left side -->
+          <div class="schemes-list-container" id="schemes-cards-list">
+            <!-- Dynamic Scheme cards go here -->
+          </div>
+
+          <!-- Profile / Eligibility Match Widget right side -->
+          <div class="eligibility-checker-card">
+            <h2 class="eligibility-title" data-tr="elig_checker_title">Match Schemes</h2>
+            <form id="form-eligibility-checker">
+              <div class="form-group">
+                <label class="form-label" for="inp-elig-occupation" data-tr="lbl_occupation">Occupation</label>
+                <select class="form-control" id="inp-elig-occupation">
+                  <option value="farmer" data-tr="occ_farmer">Active Farmer (किसान)</option>
+                  <option value="tenant" data-tr="occ_tenant">Tenant/Sharecropper (बटाईदार)</option>
+                  <option value="non-farmer" data-tr="occ_other">Other / Non-farmer</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="inp-elig-age" data-tr="lbl_age">Age (Years)</label>
+                <input type="number" class="form-control" id="inp-elig-age" min="15" max="100" value="35">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="inp-elig-land" data-tr="lbl_land_holding">Land Holding (Hectares)</label>
+                <input type="number" class="form-control" id="inp-elig-land" min="0.0" max="50.0" step="0.1" value="1.5">
+                <small style="color: var(--text-tertiary);" data-tr="lbl_hectare_help">1 Hectare ≈ 2.47 Acres</small>
+              </div>
+
+              <div class="form-group" style="display: flex; align-items: center; gap: var(--spacing-2); margin-top: var(--spacing-4);">
+                <input type="checkbox" id="inp-elig-taxpayer" style="width: 18px; height: 18px; cursor: pointer;">
+                <label class="form-label" for="inp-elig-taxpayer" style="margin-bottom: 0; cursor: pointer;" data-tr="lbl_taxpayer">I pay Income Tax</label>
+              </div>
+
+              <button type="button" class="btn-primary btn-block" style="margin-top: var(--spacing-6);" id="btn-run-elig-check">
+                <span data-tr="btn_check_matches">Check Matching Schemes</span>
+              </button>
+            </form>
+
+            <div class="eligibility-results-box" id="elig-results-container">
+              <strong id="lbl-elig-results-title">Calculated matches:</strong>
+              <p id="lbl-elig-results-desc" style="margin-top: 4px; line-height: 1.4;"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Mobile Nav Bar -->
+    <nav class="app-bottom-nav" aria-label="Mobile Navigation">
+      <a class="nav-link active" data-tab="dashboard">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+        <span data-tr="mob_nav_dash">Home</span>
+      </a>
+      <a class="nav-link" data-tab="crop">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18M3 12h18"/></svg>
+        <span data-tr="mob_nav_crop">Crops</span>
+      </a>
+      <a class="nav-link" data-tab="fertilizer">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        <span data-tr="mob_nav_fert">NPK</span>
+      </a>
+      <a class="nav-link" data-tab="weather">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
+        <span data-tr="mob_nav_weather">Weather</span>
+      </a>
+      <a class="nav-link" data-tab="pests">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+        <span data-tr="mob_nav_pests">Pests</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- Toast notifications system -->
+  <div class="toast-container" id="toast-root"></div>
+
+  <!-- Logic Scripts -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+/* Crop Advisor View Styling */
+
+.advisor-container {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--spacing-8);
+}
+
+.filter-sidebar {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  height: fit-content;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 94px;
+}
+
+.filter-section-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  margin-bottom: var(--spacing-4);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.range-display {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  margin-top: var(--spacing-1);
+}
+
+.btn-block {
+  width: 100%;
+  justify-content: center;
+  margin-top: var(--spacing-4);
+}
+
+/* Results Content */
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-6);
+  padding-bottom: var(--spacing-3);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.results-count {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-6);
+}
+
+/* Crop Card styling */
+.crop-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.crop-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-primary);
+}
+
+.crop-image-header {
+  height: 140px;
+  background-color: var(--accent-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.crop-image-header svg {
+  width: 64px;
+  height: 64px;
+  color: var(--accent-primary);
+}
+
+.crop-match-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--accent-primary);
+  color: var(--text-on-accent);
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-xs);
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+
+.crop-details {
+  padding: var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.crop-name {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-1);
+}
+
+.crop-scientific {
+  font-size: var(--font-xs);
+  font-style: italic;
+  color: var(--text-tertiary);
+  margin-bottom: var(--spacing-4);
+}
+
+.crop-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-6);
+  font-size: var(--font-sm);
+}
+
+.crop-spec-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.crop-spec-label {
+  color: var(--text-tertiary);
+  font-size: var(--font-xs);
+  font-weight: 500;
+}
+
+.crop-spec-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.crop-timeline {
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-4);
+}
+
+.timeline-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-2);
+}
+
+.timeline-bar {
+  height: 6px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-progress {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: var(--radius-full);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-12) var(--spacing-6);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--border-color-strong);
+}
+
+.empty-state svg {
+  width: 64px;
+  height: 64px;
+  color: var(--text-tertiary);
+  margin-bottom: var(--spacing-4);
+}
+
+.empty-state h3 {
+  font-size: var(--font-xl);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .advisor-container {
+    grid-template-columns: 1fr;
+  }
+  .filter-sidebar {
+    position: static;
+  }
+}

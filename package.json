@@ -1,0 +1,24 @@
+{
+  "name": "smart-krishi-assistant",
+  "version": "1.0.0",
+  "description": "Smart Krishi Assistant - Digital farming platform for crop suitability, weather alerts, fertilizer calculators, pest database, and government schemes.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "keywords": [
+    "agriculture",
+    "krishi",
+    "crop-recommendation",
+    "weather-alerts",
+    "npk-calculator"
+  ],
+  "author": "Smart Krishi Team",
+  "license": "MIT"
+}

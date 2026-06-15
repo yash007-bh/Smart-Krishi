@@ -202,10 +202,10 @@ export const CROPS_DB = [
  */
 export function getCropRecommendations(input) {
   const { soilType, ph, waterReq, season, temp } = input;
-
+  
   return CROPS_DB.map(crop => {
     let score = 0;
-
+    
     // 1. Soil Type Match (Max 35 points)
     if (crop.soilTypes.includes(soilType)) {
       score += 35;
@@ -239,8 +239,8 @@ export function getCropRecommendations(input) {
     } else {
       // Moderate matching
       if ((crop.waterReq === "moderate" && (waterReq === "low" || waterReq === "heavy")) ||
-        (crop.waterReq === "low" && waterReq === "moderate") ||
-        (crop.waterReq === "heavy" && waterReq === "moderate")) {
+          (crop.waterReq === "low" && waterReq === "moderate") ||
+          (crop.waterReq === "heavy" && waterReq === "moderate")) {
         score += 5;
       }
     }
@@ -261,6 +261,6 @@ export function getCropRecommendations(input) {
       score: score
     };
   })
-    .filter(crop => crop.score >= 50) // only show crops with > 50% match
-    .sort((a, b) => b.score - a.score);
+  .filter(crop => crop.score >= 50) // only show crops with > 50% match
+  .sort((a, b) => b.score - a.score);
 }

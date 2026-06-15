@@ -1,0 +1,233 @@
+/* Fertilizer Advisor & NPK Calculator Styling */
+
+.fertilizer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-8);
+}
+
+.calc-inputs-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.npk-sliders-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-4);
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-1);
+}
+
+.slider-label {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.slider-label .n-badge { color: #d32f2f; }
+.slider-label .p-badge { color: #1976d2; }
+.slider-label .k-badge { color: #f57c00; }
+
+.slider-val {
+  font-size: var(--font-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.custom-range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--bg-tertiary);
+  outline: none;
+}
+
+.custom-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.custom-range::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* N-P-K colored sliders */
+.custom-range.range-n::-webkit-slider-thumb { background: #d32f2f; }
+.custom-range.range-p::-webkit-slider-thumb { background: #1976d2; }
+.custom-range.range-k::-webkit-slider-thumb { background: #f57c00; }
+
+/* Diagnostic results */
+.diagnostic-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.npk-chart-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.npk-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  margin-top: var(--spacing-6);
+}
+
+.npk-chart-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.npk-chart-label {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  width: 40px;
+  text-align: center;
+}
+
+.npk-chart-label.n-label { color: #d32f2f; }
+.npk-chart-label.p-label { color: #1976d2; }
+.npk-chart-label.k-label { color: #f57c00; }
+
+.npk-chart-bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chart-bar-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+}
+
+.chart-bar-title {
+  width: 60px;
+}
+
+.chart-bar-wrapper {
+  flex: 1;
+  height: 14px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.chart-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width var(--transition-slow) ease-in-out;
+}
+
+.chart-bar-fill.bar-n-target { background: rgba(211, 47, 47, 0.4); }
+.chart-bar-fill.bar-n-current { background: #d32f2f; }
+.chart-bar-fill.bar-p-target { background: rgba(25, 118, 210, 0.4); }
+.chart-bar-fill.bar-p-current { background: #1976d2; }
+.chart-bar-fill.bar-k-target { background: rgba(245, 124, 0, 0.4); }
+.chart-bar-fill.bar-k-current { background: #f57c00; }
+
+/* Advice Blocks */
+.advice-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.advice-section-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  margin-bottom: var(--spacing-4);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fertilizer-recipe {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.recipe-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-3) var(--spacing-4);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--accent-primary);
+}
+
+.recipe-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.recipe-qty {
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+.organic-tips {
+  margin-top: var(--spacing-4);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.organic-tips li {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+}
+
+.organic-tips li::before {
+  content: '✓';
+  color: var(--accent-primary);
+  font-weight: bold;
+}
+
+@media (max-width: 900px) {
+  .fertilizer-grid {
+    grid-template-columns: 1fr;
+  }
+}

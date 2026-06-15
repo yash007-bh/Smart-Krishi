@@ -1,0 +1,230 @@
+/* Dashboard View Styling */
+
+.dashboard-hero {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
+  color: var(--text-on-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-8);
+  margin-bottom: var(--spacing-8);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.dashboard-hero::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+}
+
+.dashboard-hero-title {
+  font-size: var(--font-4xl);
+  font-weight: 800;
+  margin-bottom: var(--spacing-2);
+}
+
+.dashboard-hero-subtitle {
+  font-size: var(--font-lg);
+  opacity: 0.9;
+  max-width: 600px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-6);
+  margin-bottom: var(--spacing-8);
+}
+
+.info-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-4);
+}
+
+.widget-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.widget-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-primary);
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.widget-icon-wrapper {
+  background: var(--accent-primary-light);
+  color: var(--accent-primary);
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.widget-icon-wrapper svg {
+  width: 24px;
+  height: 24px;
+}
+
+.widget-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.widget-value {
+  font-size: var(--font-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.widget-desc {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.widget-action {
+  align-self: flex-start;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.widget-action svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-fast);
+}
+
+.widget-action:hover svg {
+  transform: translateX(3px);
+}
+
+/* Quick Alert Panel */
+.alert-panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.panel-title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-4);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-2);
+}
+
+.alert-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  list-style: none;
+}
+
+.alert-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--accent-primary);
+}
+
+.alert-item.danger {
+  border-left-color: var(--accent-secondary);
+}
+
+.alert-item.warning {
+  border-left-color: var(--accent-warm);
+}
+
+.alert-item-content {
+  flex: 1;
+}
+
+.alert-item-title {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.alert-item-time {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  margin-top: var(--spacing-1);
+}
+
+/* Agricultural Tips Section */
+.tips-section {
+  margin-top: var(--spacing-6);
+}
+
+.tips-slider {
+  display: flex;
+  gap: var(--spacing-4);
+  overflow-x: auto;
+  padding-bottom: var(--spacing-4);
+}
+
+.tip-card {
+  min-width: 280px;
+  flex: 1;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+  box-shadow: var(--shadow-sm);
+}
+
+.tip-header {
+  font-size: var(--font-xs);
+  font-weight: 700;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-2);
+}
+
+.tip-text {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .info-cards-container {
+    grid-template-columns: 1fr;
+  }
+}
